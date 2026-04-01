@@ -1,0 +1,56 @@
+name: Kali Smoke
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/kali-smoke.yml"
+      - "scripts/setup-kali.sh"
+      - "pyproject.toml"
+      - "requirements.txt"
+      - "main.py"
+      - "osint/**"
+      - "utils/**"
+      - "tests/**"
+
+jobs:
+  kali-smoke:
+    runs-on: ubuntu-latest
+    container:
+      image: kalilinux/kali-rolling:latest
+
+    steps:
+      - name: Install system dependencies
+        run: |
+          apt-get update
+          DEBIAN_FRONTEND=noninteractive apt-get install -y \
+            git \
+            make \
+            python3 \
+            python3-pip \
+            python3-venv
+
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Run Kali setup script
+        run: bash scripts/setup-kali.sh
+
+      - name: Lint
+        run: |
+          source .venv/bin/activate
+          python -m flake8 osint utils tests main.py
+
+      - name: Run tests
+        run: |
+          source .venv/bin/activate
+          python -m pytest
+
+      - name: CLI smoke checks
+        run: |
+          source .venv/bin/activate
+          python -m osint --help
+          python -m osint ip 192.168.1.5 --json
+          python -m osint user johndoe --services github --json
