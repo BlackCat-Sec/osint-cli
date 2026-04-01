@@ -1,0 +1,19 @@
+[
+  {
+    "Name": "Adobe",
+    "Title": "Adobe",
+    "Domain": "adobe.com",
+    "BreachDate": "2013-10-04",
+    "AddedDate": "2013-12-04T00:00:00Z",
+    "ModifiedDate": "2013-12-04T00:00:00Z",
+    "IsVerified": true,
+    "IsSensitive": false,
+    "IsRetired": false,
+    "IsFabricated": false,
+    "IsSpamList": false,
+    "DataClasses": [
+      "Email addresses",
+      "Passwords"
+    ]
+  }
+]

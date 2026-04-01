@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "osint-cli"
+version = "0.1.0"
+description = "A modular Python CLI for basic OSINT lookups."
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [
+  { name = "OpenAI Codex" }
+]
+dependencies = [
+  "colorama>=0.4.6,<1.0",
+  "dnspython>=2.7.0,<3.0",
+  "pyhibp>=4.2.0,<5.0",
+  "python-whois>=0.9.6,<1.0",
+  "requests>=2.32.0,<3.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "flake8>=7.1.0,<8.0",
+  "pytest>=8.3.0,<9.0",
+]
+
+[project.scripts]
+osint-cli = "osint.cli:console_main"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.setuptools.packages.find]
+include = ["osint*", "utils*"]
