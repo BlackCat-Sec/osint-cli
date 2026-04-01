@@ -20,6 +20,9 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: kalilinux/kali-rolling:latest
+    defaults:
+      run:
+        shell: bash
 
     steps:
       - name: Install system dependencies
